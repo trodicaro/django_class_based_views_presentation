@@ -1,0 +1,24 @@
+{% block content %}
+<form id="menu_form" method='post' novalidate>{% csrf_token %}
+      <button class="btn jumbo" data-form-type="New Enrollment">New Enrollment</button>
+      <button class="btn jumbo" data-form-type="Change Enrollment">Change Enrollment</button>
+      {{ form.user_choice }}
+</form>
+{% endblock %}
+
+
+{% block extra_js %}
+<script>
+    $(document).ready(function () {
+        var formButtons = document.querySelectorAll('form .btn');
+        formButtons.forEach(function(button) {
+          button.addEventListener('click',function(e) {
+            e.preventDefault();
+            userChoice = e.target.dataset.choice
+            document.getElementById("id_choice").value = userChoice;
+            document.getElementById("menu_form").submit();
+          });
+        });
+    });
+</script>
+{% endblock %}
